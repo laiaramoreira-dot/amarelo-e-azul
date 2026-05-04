@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cilindros Luz e Sombra</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #050505;
+            gap: 80px;
+        }
+
+        .vial {
+            width: 120px;
+            height: 300px;
+            position: relative;
+        }
+
+        /* Corpo de vidro com gradiente lateral para simular curvatura */
+        .glass-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(153, 175, 183, 0.6);
+            border-radius: 12px;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0.02) 0%, 
+                rgba(255,255,255,0.08) 50%, 
+                rgba(255,255,255,0.02) 100%);
+            box-sizing: border-box;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+        }
+
+        /* Topo com efeito de borda iluminada */
+        .glass-top {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 102%;
+            height: 35px;
+            border: 4px solid #99AFB7;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1a1a1a 30%, #000 100%);
+            box-sizing: border-box;
+            z-index: 4;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Líquidos com gradiente e glow dinâmico */
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .yellow {
+            background: linear-gradient(to top, #fbc02d, #ffeb3b);
+            box-shadow: 0 0 30px rgba(254, 222, 59, 0.2); /* Brilho amarelo */
+            animation: moveYellow 4s ease-in-out infinite alternate;
+        }
+
+        .blue {
+            background: linear-gradient(to top, #1976d2, #4D9AE3);
+            box-shadow: 0 0 30px rgba(77, 154, 227, 0.2); /* Brilho azul */
+            animation: moveBlue 4s ease-in-out infinite alternate;
+        }
+
+        /* Reflexo vertical "fino" clássico de vidro */
+        .glass-body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15%;
+            width: 6px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: 3;
+            filter: blur(1px);
+        }
+
+        /* Sombra no "chão" que reage ao líquido */
+        .vial::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 10%;
+            width: 80%;
+            height: 15px;
+            background: rgba(255,255,255,0.05);
+            filter: blur(8px);
+            border-radius: 50%;
+        }
+
+        @keyframes moveYellow {
+            0% { height: 85%; opacity: 0.9; }
+            100% { height: 15%; opacity: 0.6; }
+        }
+
+        @keyframes moveBlue {
+            0% { height: 15%; opacity: 0.6; }
+            100% { height: 85%; opacity: 0.9; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vial">
+        <div class="glass-top"></div>
+        <div class="glass-body">
+            <div class="liquid yellow"></div>
+        </div>
+    </div>
+
+    <div class="vial">
+        <div class="glass-top"></div>
+        <div class="glass-body">
+            <div class="liquid blue"></div>
+        </div>
+    </div>
+
+</body>
+</html>
